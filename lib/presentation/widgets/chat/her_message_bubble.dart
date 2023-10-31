@@ -36,24 +36,22 @@ class _ImageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final colors = Theme.of(context).colorScheme;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
-      //https://yesno.wtf/assets/yes/9-6403270cf95723ae4664274db51f1fd4.gif
       child: Image.network('https://yesno.wtf/assets/yes/9-6403270cf95723ae4664274db51f1fd4.gif',
       width: size.width * 0.7,
       height: 150,
       fit: BoxFit.cover,
       loadingBuilder: (context, child, loadingProgress) {
-        // if (loadingProgress == null)  return child;
-           
+          if (loadingProgress == null)  return child;
           return Container(
-            
-            color: const Color.fromARGB(255, 239, 239, 238),
+            color: colors.secondary,
             width: size.width * 0.7,
             height: 150,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child:   const Center(child: Text('Loading image...')),
+            child:   const Center(child: Text('Loading image...',)),
           );
       },
       )
