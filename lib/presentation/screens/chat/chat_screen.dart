@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/presentation/widgets/chat/her_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -8,14 +9,29 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage('https://images.unsplash.com/photo-1547425260-76bcadfb4f2c'),
+        title: const Row(
+          children: [
+            Icon(Icons.arrow_back_outlined),
+            SizedBox(width: 15),
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://inmofotos.es/wp-content/uploads/2021/10/imagen-1_Mesa-de-trabajo-1.jpg'),
             ),
+            SizedBox(width: 10),
+            Column(
+              children: [
+                Text('My love 🥰'),
+                Text('Last time recently',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        title: const Text("My love 🥰"),
-        centerTitle: false ,
+        centerTitle: false,
       ),
       body: _ChatView(),
     );
@@ -34,13 +50,18 @@ class _ChatView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-          Expanded(child: ListView.builder(
-            itemCount: 100,
-            itemBuilder: (context, index) {
-            return const MyMessageBubble();
-          },)),
-          const Text('Send message'),
-        ],),
+            Expanded(
+                child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return (index % 2 == 0)
+                ?const MyMessageBubble() 
+                :const HerMessageBubble();
+              },
+            )),
+            const Text('Send message'),
+          ],
+        ),
       ),
     );
   }
