@@ -16,7 +16,9 @@ class ChatScreen extends StatelessWidget {
         title:  Row(
           children: [
             IconButton(
-              onPressed: (){}, 
+              onPressed: (){
+                //TODO SET NEW ACTIVITY
+              }, 
               icon: const Icon(Icons.arrow_back_outlined )
               ),
             const CircleAvatar(
@@ -57,6 +59,7 @@ class _ChatView extends StatelessWidget {
           children: [
             Expanded(
                 child: ListView.builder(
+              controller: chatProvider.chatScrollController,
               itemCount: chatProvider.messageList.length,
               itemBuilder: (context, index) {
                  final message = chatProvider.messageList[index];
@@ -66,7 +69,10 @@ class _ChatView extends StatelessWidget {
               },
             )),
            //Message Field Box
-           const MessageFieldBox()
+          MessageFieldBox(
+            //onValue:(value) => chatProvider.sendMessage(value),
+            onValue: chatProvider.sendMessage
+            )
           ],
         ),
       ),
