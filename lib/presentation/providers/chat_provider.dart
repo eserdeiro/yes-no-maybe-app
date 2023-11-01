@@ -8,9 +8,7 @@ class ChatProvider extends ChangeNotifier{
   final getYesNoAnswer = GetYesNoAnswer();
 
 List<Message> messageList = [
-  Message(text: 'Hi', fromWho: FromWho.me),
-    Message(text: 'Ya regresasteeee?', fromWho: FromWho.me),
-      Message(text: 'Quiza', fromWho: FromWho.hers),
+  Message(text: 'Welcome to a new flutter proyect', fromWho: FromWho.hers),
 ];
 
 //me send messages
@@ -25,17 +23,18 @@ notifyListeners();
 moveScrollToBottom();
 }
 
-//Her receive messages 
+//Her send messages, it func is a test 
 Future<void> receiveMessage(String text) async{
-  if(text.isEmpty) return;
  final newMessage = Message(text: text, fromWho: FromWho.hers);
  messageList.add(newMessage);
-notifyListeners();
-moveScrollToBottom();
+
 }
 
   Future<void>herReply() async {
   final herMessage = await getYesNoAnswer.getAnswer();
+  messageList.add(herMessage);
+  notifyListeners();
+  moveScrollToBottom(); 
 }
 
 //When user send message

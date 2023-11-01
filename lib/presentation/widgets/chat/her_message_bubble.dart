@@ -23,7 +23,7 @@ class HerMessageBubble extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         //Todo image
-        _ImageBubble(),
+        _ImageBubble(image: message.imageUrl.toString()),
         const SizedBox(height: 10),
       ],
     );
@@ -31,15 +31,19 @@ class HerMessageBubble extends StatelessWidget {
 }
 
 class _ImageBubble extends StatelessWidget {
+  
+final String image;
+  const _ImageBubble({required this.image});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final colors = Theme.of(context).colorScheme;
-
-    return ClipRRect(
+  if(image != 'null') {
+  return ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Image.network(
-          'https://yesno.wtf/assets/yes/9-6403270cf95723ae4664274db51f1fd4.gif',
+          image,
           width: size.width * 0.7,
           height: 150,
           fit: BoxFit.cover,
@@ -57,5 +61,9 @@ class _ImageBubble extends StatelessWidget {
             );
           },
         ));
+  } else {
+  return SizedBox(height: 0);
+  }
+  
   }
 }
