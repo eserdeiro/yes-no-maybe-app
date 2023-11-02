@@ -7,28 +7,25 @@ import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/shared/message_field_box.dart';
 
 class ChatScreen extends StatelessWidget {
+  
   const ChatScreen({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-    final chatProvider = context.watch<ChatProvider>();
+    
     return Scaffold(
       appBar: AppBar(
-        title:  Row(
+        actions: [
+          _PopupMenu()
+        ],
+        title: const Row(
           children: [
-            IconButton(
-              onPressed: (){
-                //TODO SET NEW ACTIVITY
-              }, 
-              icon: const Icon( Icons.arrow_back_outlined ),
-              tooltip: "Home",
-              ),
-            const CircleAvatar(
+            CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://inmofotos.es/wp-content/uploads/2021/10/imagen-1_Mesa-de-trabajo-1.jpg'),
             ),
-            const SizedBox(width: 10),
-            const Column(
+            SizedBox(width: 10),
+            Column(
               children: [
                 Text('My love 🥰'),
                 Text('Last time recently',
@@ -39,11 +36,6 @@ class ChatScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const Spacer(),
-            IconButton(onPressed: (){
-              chatProvider.refresh();
-            },icon: const Icon(Icons.refresh_outlined),
-              tooltip: 'Clear chat',),
           ],
         ),
         titleSpacing: 0,
@@ -53,12 +45,43 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-class _ChatView extends StatelessWidget { 
+class _PopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>();
+    
+    return PopupMenuButton(itemBuilder: (BuildContext context) {
+      
+      return [
+        const PopupMenuItem(
+          value: 'clean', 
+          child: Text('Clean chat')),
+        const PopupMenuItem(
+          value: 'theme',
+          child: Text('Theme'),
+        ),
+        const PopupMenuItem(
+          value: 'color',
+          child: Text('Color'),
+        )
+      ];
+    },
+    onSelected: (value){
+      switch(value){
+        case 'clean' : chatProvider.clean(); break;
+        case 'theme' : break;
+        case 'color' : break;
+      }
+    },
+    );
+  }
+}
 
-   final chatProvider = context.watch<ChatProvider>();
+class _ChatView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>();
 
     return SafeArea(
       child: Padding(
@@ -70,17 +93,16 @@ class _ChatView extends StatelessWidget {
               controller: chatProvider.chatScrollController,
               itemCount: chatProvider.messageList.length,
               itemBuilder: (context, index) {
-                 final message = chatProvider.messageList[index];
-                 return (message.fromWho == FromWho.hers)
-                 ? HerMessageBubble(message: message)
-                 : MyMessageBubble(message : message);
+                final message = chatProvider.messageList[index];
+                return (message.fromWho == FromWho.hers)
+                    ? HerMessageBubble(message: message)
+                    : MyMessageBubble(message: message);
               },
             )),
-           //Message Field Box
-          MessageFieldBox(
-            //onValue:(value) => chatProvider.sendMessage(value),
-            onValue: chatProvider.sendMessage
-            )
+            //Message Field Box
+            MessageFieldBox(
+                //onValue:(value) => chatProvider.sendMessage(value),
+                onValue: chatProvider.sendMessage)
           ],
         ),
       ),
