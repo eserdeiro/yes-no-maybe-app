@@ -22,7 +22,6 @@ class HerMessageBubble extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        //Todo image
         _ImageBubble(image: message.imageUrl.toString()),
         const SizedBox(height: 10),
       ],
@@ -62,7 +61,7 @@ final String image;
           },
         ));
   } else {
-  return SizedBox(height: 0);
+  return const SizedBox(height: 0);
   }
   
   }

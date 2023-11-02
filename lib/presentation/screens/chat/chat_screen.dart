@@ -11,6 +11,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>();
     return Scaffold(
       appBar: AppBar(
         title:  Row(
@@ -19,7 +20,8 @@ class ChatScreen extends StatelessWidget {
               onPressed: (){
                 //TODO SET NEW ACTIVITY
               }, 
-              icon: const Icon(Icons.arrow_back_outlined )
+              icon: const Icon( Icons.arrow_back_outlined ),
+              tooltip: "Home",
               ),
             const CircleAvatar(
               backgroundImage: NetworkImage(
@@ -37,8 +39,14 @@ class ChatScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const Spacer(),
+            IconButton(onPressed: (){
+              chatProvider.refresh();
+            },icon: const Icon(Icons.refresh_outlined),
+              tooltip: 'Clear chat',),
           ],
         ),
+        titleSpacing: 0,
       ),
       body: _ChatView(),
     );

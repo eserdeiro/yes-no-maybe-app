@@ -24,11 +24,11 @@ moveScrollToBottom();
 }
 
 //Her send messages, it func is a test 
-Future<void> receiveMessage(String text) async{
- final newMessage = Message(text: text, fromWho: FromWho.hers);
- messageList.add(newMessage);
+// Future<void> receiveMessage(String text) async{
+//  final newMessage = Message(text: text, fromWho: FromWho.hers);
+//  messageList.add(newMessage);
 
-}
+// }
 
   Future<void>herReply() async {
   final herMessage = await getYesNoAnswer.getAnswer();
@@ -45,6 +45,12 @@ Future<void> moveScrollToBottom() async{
   duration: const Duration(milliseconds: 300), 
   curve: Curves.decelerate
   );
+}
+
+Future<void> refresh() async{
+  await Future.delayed(const Duration(milliseconds: 100));
+  messageList.clear();
+  notifyListeners();
 }
 
 }
