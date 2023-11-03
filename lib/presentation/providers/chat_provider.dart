@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:yes_no_app/config/helpers/get_yes_no_answer.dart';
 import 'package:yes_no_app/domain/entities/message.dart';
+import 'package:yes_no_app/presentation/providers/conversation_provider.dart';
 
 class ChatProvider extends ChangeNotifier {
   final ScrollController chatScrollController = ScrollController();
   final getYesNoAnswer = GetYesNoAnswer();
 
-  List<Message> messageList = [
-    Message(text: 'Welcome to a new flutter proyect', fromWho: FromWho.hers),
-    Message(text: 'Ask me a question :)', fromWho: FromWho.hers),
-  ];
+  List<Message> messageList =
+      ConversationProvider().conversationList[0].messageList;
 
-      Future<void> delayed({required int time}) async {
+  getMessageList(int index) {
+    return ConversationProvider().conversationList[index].messageList;
+  }
+
+  //TODO FIX messageList
+  Future<void> delayed({required int time}) async {
     await Future.delayed(Duration(milliseconds: time));
   }
 
@@ -29,7 +33,7 @@ class ChatProvider extends ChangeNotifier {
   Future<void> receiveMessage() async {
     final herMessage = await getYesNoAnswer.getAnswer();
     messageList.add(herMessage);
-    
+
     notifyListeners();
     moveScrollToBottom();
   }
@@ -48,15 +52,4 @@ class ChatProvider extends ChangeNotifier {
     messageList.clear();
     notifyListeners();
   }
-
-
-String getLastMessage() {
-  for (int i = messageList.length - 1; i >= 0; i--) {
-    if (messageList[i].fromWho == FromWho.hers || messageList[i].fromWho == FromWho.me) {
-      return messageList[i].text;
-    }
-  }
-  return '';
-}
-
 }

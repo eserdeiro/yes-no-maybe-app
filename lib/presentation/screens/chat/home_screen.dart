@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yes_no_app/presentation/providers/conversation_provider.dart';
-import 'package:yes_no_app/presentation/screens/chat/chat_screen.dart';
 import 'package:yes_no_app/presentation/widgets/chat/conversation_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,25 +17,15 @@ class HomeScreen extends StatelessWidget {
             IconButton(onPressed: (){
               //TODO IMPLEMENT PROFILE
             },
-            icon: const Icon(Icons.person_2_outlined)
+            icon: const Icon(Icons.person_outline_outlined)
             ),
           ],
         ),
       ),
-      body: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ChatScreen()),
-            );
-          },
-          child: _ConversationView()
-          )
+      body: _ConversationView()
         );
   }
 }
-
-
 
  class _ConversationView extends StatelessWidget {
   @override
@@ -52,8 +41,9 @@ class HomeScreen extends StatelessWidget {
             itemCount: conversationProvider.conversationList.length,
             itemBuilder: (context, index) {
               final list = conversationProvider.conversationList[index];
-              return ConversationList(context, conversation: list);
-            },
+              return ConversationList(context, conversation: list, index: index);
+            }
+            ,
           )),
         ],
       ),

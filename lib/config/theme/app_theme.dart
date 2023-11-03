@@ -11,10 +11,7 @@ const List<Color> _colorThemes = [
   Colors.pink,
 ];
 
-const List<Brightness> _brightnessMode = [
-  Brightness.light, 
-  Brightness.dark
-  ];
+const List<Brightness> _brightnessMode = [Brightness.light, Brightness.dark];
 
 class AppTheme {
   final int selectedColor;
@@ -25,7 +22,7 @@ class AppTheme {
             "Index of Colors must be between 0 - ${_colorThemes.length}"),
         assert(
           brightness >= 0 && brightness < _brightnessMode.length,
-          "Index of Brightness must be between 0 - ${_brightnessMode.length -1}",
+          "Index of Brightness must be between 0 - ${_brightnessMode.length - 1}",
         );
 
   ThemeData theme() {

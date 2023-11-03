@@ -2,33 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yes_no_app/domain/entities/message.dart';
 import 'package:yes_no_app/presentation/providers/chat_provider.dart';
+import 'package:yes_no_app/presentation/providers/conversation_provider.dart';
 import 'package:yes_no_app/presentation/widgets/chat/her_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/shared/message_field_box.dart';
 
 class ChatScreen extends StatelessWidget {
-  
-  const ChatScreen({super.key});
-  
+  final int index;
+  const ChatScreen({super.key, required this.index});
+
   @override
   Widget build(BuildContext context) {
-    
+    final conversationProvider = context.watch<ConversationProvider>();
+
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          _PopupMenu()
-        ],
-        title: const Row(
+        actions: [_PopupMenu()],
+        title: Row(
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://inmofotos.es/wp-content/uploads/2021/10/imagen-1_Mesa-de-trabajo-1.jpg'),
+                  conversationProvider.conversationList[index].profileImage),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Column(
               children: [
-                Text('My love 🥰'),
-                Text('Last time recently',
+                Text(conversationProvider.conversationList[index].nameUser),
+                const Text(
+                  'Last time recently',
                   style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
@@ -40,16 +41,18 @@ class ChatScreen extends StatelessWidget {
         ),
         titleSpacing: 0,
       ),
-      body: _ChatView(),
+      body: ChatView(index: index),
     );
   }
 }
 
-class _ChatView extends StatelessWidget {
+class ChatView extends StatelessWidget {
+  final int index;
+  const ChatView({super.key, required this.index});
+
   @override
   Widget build(BuildContext context) {
     final chatProvider = context.watch<ChatProvider>();
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -66,10 +69,7 @@ class _ChatView extends StatelessWidget {
                     : MyMessageBubble(message: message);
               },
             )),
-            //Message Field Box
-            MessageFieldBox(
-                //onValue:(value) => chatProvider.sendMessage(value),
-                onValue: chatProvider.sendMessage)
+            MessageFieldBox(onValue: chatProvider.sendMessage)
           ],
         ),
       ),
@@ -78,36 +78,37 @@ class _ChatView extends StatelessWidget {
 }
 
 class _PopupMenu extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final chatProvider = context.watch<ChatProvider>();
-    
-    return PopupMenuButton(itemBuilder: (BuildContext context) {
-      
-      return [
-        const PopupMenuItem(
-          value: 'clean', 
-          child: Text('Clean chat')),
-        const PopupMenuItem(
-          //TODO IMPLEMENT THIS
-          value: 'theme',
-          child: Text('Theme'),
-        ),
-        const PopupMenuItem(
-          //TODO IMPLEMENT THIS
-          value: 'color',
-          child: Text('Color'),
-        )
-      ];
-    },
-    onSelected: (value){
-      switch(value){
-        case 'clean' : chatProvider.clean(); break;
-        case 'theme' : break;
-        case 'color' : break;
-      }
-    },
+
+    return PopupMenuButton(
+      itemBuilder: (BuildContext context) {
+        return [
+          const PopupMenuItem(value: 'clean', child: Text('Clean chat')),
+          const PopupMenuItem(
+            //TODO IMPLEMENT THIS
+            value: 'theme',
+            child: Text('Theme'),
+          ),
+          const PopupMenuItem(
+            //TODO IMPLEMENT THIS
+            value: 'color',
+            child: Text('Color'),
+          )
+        ];
+      },
+      onSelected: (value) {
+        switch (value) {
+          case 'clean':
+            chatProvider.clean();
+            break;
+          case 'theme':
+            break;
+          case 'color':
+            break;
+        }
+      },
     );
   }
 }
