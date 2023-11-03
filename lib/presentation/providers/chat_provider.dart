@@ -10,9 +10,6 @@ class ChatProvider extends ChangeNotifier {
   List<Message> messageList =
       ConversationProvider().conversationList[0].messageList;
 
-  getMessageList(int index) {
-    return ConversationProvider().conversationList[index].messageList;
-  }
 
   //TODO FIX messageList
   Future<void> delayed({required int time}) async {

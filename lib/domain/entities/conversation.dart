@@ -3,7 +3,7 @@ import 'package:yes_no_app/domain/entities/message.dart';
 class Conversation {
   final String profileImage;
   final String nameUser;
-  final List<Message> messageList;
+  List<Message> messageList;
   String lastMessage;
   final String date;
   final int id;

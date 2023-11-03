@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            const Text('Yes, No, Maybe APP'),
+            const Text('Yes No Maybe APP'),
             const Spacer(),
             IconButton(onPressed: (){
               //TODO IMPLEMENT PROFILE
@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final conversationProvider = context.watch<ConversationProvider>();
-
+   
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -43,7 +43,6 @@ class HomeScreen extends StatelessWidget {
               final list = conversationProvider.conversationList[index];
               return ConversationList(context, conversation: list, index: index);
             }
-            ,
           )),
         ],
       ),
