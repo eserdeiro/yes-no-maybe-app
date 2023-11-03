@@ -58,10 +58,12 @@ class _PopupMenu extends StatelessWidget {
           value: 'clean', 
           child: Text('Clean chat')),
         const PopupMenuItem(
+          //TODO IMPLEMENT THIS
           value: 'theme',
           child: Text('Theme'),
         ),
         const PopupMenuItem(
+          //TODO IMPLEMENT THIS
           value: 'color',
           child: Text('Color'),
         )
