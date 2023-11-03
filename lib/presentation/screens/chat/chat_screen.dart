@@ -45,6 +45,38 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
+class _ChatView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>();
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            Expanded(
+                child: ListView.builder(
+              controller: chatProvider.chatScrollController,
+              itemCount: chatProvider.messageList.length,
+              itemBuilder: (context, index) {
+                final message = chatProvider.messageList[index];
+                return (message.fromWho == FromWho.hers)
+                    ? HerMessageBubble(message: message)
+                    : MyMessageBubble(message: message);
+              },
+            )),
+            //Message Field Box
+            MessageFieldBox(
+                //onValue:(value) => chatProvider.sendMessage(value),
+                onValue: chatProvider.sendMessage)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _PopupMenu extends StatelessWidget {
 
   @override
@@ -76,38 +108,6 @@ class _PopupMenu extends StatelessWidget {
         case 'color' : break;
       }
     },
-    );
-  }
-}
-
-class _ChatView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final chatProvider = context.watch<ChatProvider>();
-
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            Expanded(
-                child: ListView.builder(
-              controller: chatProvider.chatScrollController,
-              itemCount: chatProvider.messageList.length,
-              itemBuilder: (context, index) {
-                final message = chatProvider.messageList[index];
-                return (message.fromWho == FromWho.hers)
-                    ? HerMessageBubble(message: message)
-                    : MyMessageBubble(message: message);
-              },
-            )),
-            //Message Field Box
-            MessageFieldBox(
-                //onValue:(value) => chatProvider.sendMessage(value),
-                onValue: chatProvider.sendMessage)
-          ],
-        ),
-      ),
     );
   }
 }

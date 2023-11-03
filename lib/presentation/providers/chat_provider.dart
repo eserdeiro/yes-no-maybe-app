@@ -20,20 +20,13 @@ class ChatProvider extends ChangeNotifier {
     if (text.isEmpty) return;
     final newMessage = Message(text: text, fromWho: FromWho.me);
     messageList.add(newMessage);
-    if (text.endsWith('?')) herReply();
+    if (text.endsWith('?')) receiveMessage();
 
     notifyListeners();
     moveScrollToBottom();
   }
 
-//Her send messages, it func is a test
-// Future<void> receiveMessage(String text) async{
-//  final newMessage = Message(text: text, fromWho: FromWho.hers);
-//  messageList.add(newMessage);
-
-// }
-
-  Future<void> herReply() async {
+  Future<void> receiveMessage() async {
     final herMessage = await getYesNoAnswer.getAnswer();
     messageList.add(herMessage);
     
@@ -55,4 +48,15 @@ class ChatProvider extends ChangeNotifier {
     messageList.clear();
     notifyListeners();
   }
+
+
+String getLastMessage() {
+  for (int i = messageList.length - 1; i >= 0; i--) {
+    if (messageList[i].fromWho == FromWho.hers || messageList[i].fromWho == FromWho.me) {
+      return messageList[i].text;
+    }
+  }
+  return '';
+}
+
 }
