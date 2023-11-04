@@ -8,6 +8,34 @@ A simple functional chat that expects an automated random response from "https:/
 
 I will modify this app as I gain more knowledge.
 
+- Specific topics 
+
+- TextEditingControllers
+
+- Focus Nodes
+
+- ThemeData
+
+- Widgets: 
+
+    Containers
+
+    SizeBox
+
+    ListViews
+
+    CustomWidgets
+
+    Expanded
+
+    Padding
+
+    Image (from internet)
+
+    ClipRRect (rounded edges)
+
+    & others
+
 ![Demo 1](https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotOne.png)
 
 ![Demo 2](https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotTwo.png)
