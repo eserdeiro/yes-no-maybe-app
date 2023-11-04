@@ -7,11 +7,10 @@ class ChatProvider extends ChangeNotifier {
   final ScrollController chatScrollController = ScrollController();
   final getYesNoAnswer = GetYesNoAnswer();
 
-  List<Message> messageList =
+//TODO FIX messageList
+
+    List<Message> messageList =
       ConversationProvider().conversationList[0].messageList;
-
-
-  //TODO FIX messageList
   Future<void> delayed({required int time}) async {
     await Future.delayed(Duration(milliseconds: time));
   }

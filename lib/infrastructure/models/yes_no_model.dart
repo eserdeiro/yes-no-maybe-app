@@ -22,9 +22,10 @@ class YesNoModel {
         "forced": forced,
         "image": image,
     };
-    //TODO include "Maybe"
-    Message toMessageEntity() => Message(
-    text: answer == 'yes' ? 'Yes' : 'No',
+
+   Message toMessageEntity() => Message(
+    text: answer == 'yes' ? 'Yes' : (answer == 'no' ? 'No' : 'Maybe'),
     fromWho: FromWho.hers,
-    imageUrl: image);
+    imageUrl: image
+);
 }
