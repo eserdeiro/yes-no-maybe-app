@@ -36,9 +36,4 @@ I will modify this app as I gain more knowledge.
 
     & others
 
-![Demo 1](https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotOne.png)
-
-![Demo 2](https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotTwo.png)
-
-![Demo 3](https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotThree.png)
-
+<img src="https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotOne.png" width="30%"><img src="https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotTwo.png" width="30%"><img src="https://raw.githubusercontent.com/eserdeiro/yes-no-maybe-app/main/assets/ScreenshotThree.png" width="30%">
